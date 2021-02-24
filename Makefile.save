@@ -1,0 +1,27 @@
+CC=gcc
+·LIBS=-pg -lm 
+librerias extra
+#variable de compilador
+SFLAGS=-c -Wall
+#flag de creacion de archivos.o
+CFLAGS=-I.include/
+#incluir archivos de encabezado en la ruta 
+all: programa
+programa: main.o lista.o
+	$(CC) -g -o ejecutable lista.c main.c  $(CFLAGS) $(LIBS)
+	mv ejecutable build/
+	mv *.o obj/
+#mover los archivos extension .o a build 
+#mover el ejecutable a build
+main.o: main.c
+	$(CC) $(SFLAGS) src/main.c
+lista.o:lista.c
+	$(CC) $(SFLAGS) src/lista.c
+#al ejecutar make clen, borra todos los archivo con extension.o 
+#el programa se podria borrar con make clean pero en el ubicacion del archivo
+#la cual es build
+.PHONY: clean
+clean:
+	rm -rf obj/*.o
+#eliminar archivos.o en directorio build 
+	rm build/ejecutable
